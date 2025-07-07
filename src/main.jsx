@@ -1,0 +1,20 @@
+import { StrictMode } from 'react'
+import { createRoot } from 'react-dom/client'
+import App from './App.jsx'
+import {BrowserRouter}  from'react-router-dom'
+import'./main.css'
+import UserConetxt from './context/userConetxt.jsx'
+import CartContext from './context/CartContext.jsx'
+
+
+createRoot(document.getElementById('root')).render(
+<StrictMode>
+  <UserConetxt>
+    <CartContext>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+    </CartContext>
+  </UserConetxt>
+</StrictMode>
+)

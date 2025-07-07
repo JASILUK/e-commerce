@@ -1,0 +1,61 @@
+.navbar {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  gap: 50px;
+  padding: 5px;
+  background-color:rgb(73, 92, 175); 
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  box-shadow: 0px 5px 10px rgb(181, 178, 178);
+  height: 60px;
+  position: sticky;
+  top: 0;
+  transition: background-color 0.5s ease, backdrop-filter 0.5s ease;
+}
+
+.scrolling {
+  background-color:rgba(73, 92, 175, 0.7);
+  backdrop-filter: blur(10px);
+}
+
+.navlink {
+  color: #ffffff;
+  text-decoration: none;
+  text-decoration-style: none;
+  text-decoration-line: none;
+  font-weight: 500; 
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+.navlink:hover {
+  color: rgb(0, 0, 0);
+}
+
+  .navlink::after {
+  content: '';
+  position: absolute;
+  width: 0%;
+  height: 2px;
+  background: white;
+  bottom: -4px;
+  left: 0;
+  transition: width 0.3s ease;
+}
+
+.navlink:hover::after {
+  width: 100%;
+}
+
+.navlink.active {
+  color: white;
+  font-weight: 600;
+}
+
+.logo{
+width: 60px;
+height: 50px;
+object-fit: contain;
+margin-left: 10px;
+}
