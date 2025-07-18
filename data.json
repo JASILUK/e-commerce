@@ -5,30 +5,24 @@
       "name": "jasil",
       "email": "jasil@gmail.com",
       "password": "1234",
-      "role": "user"
+      "role": "admin",
+      "isblocked": false
     },
     {
-      "id": "3e09",
-      "name": "unni",
-      "email": "unaiscld18@gmail.com",
-      "password": "123",
-      "role": "user"
-    },
-    {
-      "id": "c830",
-      "name": "jasil",
-      "email": "mohdjasil2004@gmail.com",
+      "id": "0c87",
+      "name": "muhammedjasil",
+      "email": "jasil123@gmai.com",
       "password": "1234",
-      "role": "user"
+      "role": "user",
+      "isblocked": false
     }
   ],
   "products": [
-  
     {
       "id": "3",
       "title": "Men's Sports Jacket",
       "category": "men",
-      "price": 2499,
+      "price": "2399",
       "sizes": [
         "M",
         "L"
@@ -39,7 +33,7 @@
       ],
       "imageUrl": "https://i.pinimg.com/736x/59/86/00/59860092005c965b8af3052803d43c34.jpg",
       "description": "Water-resistant sports jacket ideal for workouts.",
-      "stock": 30,
+      "stock": 21,
       "rating": 4.6,
       "tags": [
         "jacket",
@@ -48,7 +42,8 @@
       ],
       "discount": 20,
       "isFeatured": true,
-      "createdAt": "2025-06-14T14:00:00Z"
+      "createdAt": "2025-06-14T14:00:00Z",
+      "status": "active"
     },
     {
       "id": "4",
@@ -66,8 +61,8 @@
       ],
       "imageUrl": "https://i.pinimg.com/736x/75/33/0b/75330bea2306e1a8f21d79132b139549.jpg",
       "description": "Slim-fit formal shirt suitable for office wear.",
-      "stock": 80,
-      "rating": 4.0,
+      "stock": 78,
+      "rating": 4,
       "tags": [
         "shirt",
         "formal",
@@ -75,7 +70,8 @@
       ],
       "discount": 5,
       "isFeatured": false,
-      "createdAt": "2025-06-15T09:45:00Z"
+      "createdAt": "2025-06-15T09:45:00Z",
+      "status": "active"
     },
     {
       "id": "5",
@@ -93,7 +89,7 @@
       ],
       "imageUrl": "https://i.pinimg.com/736x/ab/66/2a/ab662a44f01a4945a87f2304f4714d3c.jpg",
       "description": " Slim-fit lightweight sports jacket with one-button closure two flap pockets, and an inside pocket.",
-      "stock": 60,
+      "stock": 59,
       "rating": 4.7,
       "tags": [
         "shoes",
@@ -102,7 +98,8 @@
       ],
       "discount": 25,
       "isFeatured": true,
-      "createdAt": "2025-06-16T08:30:00Z"
+      "createdAt": "2025-06-16T08:30:00Z",
+      "status": "active"
     },
     {
       "id": "15",
@@ -119,7 +116,7 @@
       ],
       "imageUrl": "https://i.pinimg.com/736x/24/23/ee/2423ee2ef1628871d667ca492c38a578.jpg",
       "description": "Waterproof raincoat for children with hood.",
-      "stock": 40,
+      "stock": 39,
       "rating": 4.4,
       "tags": [
         "raincoat",
@@ -128,21 +125,25 @@
       ],
       "discount": 10,
       "isFeatured": false,
-      "createdAt": "2025-06-25T13:00:00Z"
+      "createdAt": "2025-06-25T13:00:00Z",
+      "status": "active"
     },
     {
       "id": "7",
       "title": "Women's Floral Cottagecore Dress",
       "category": "women",
       "price": 2499,
-      "sizes": ["M","L"],
+      "sizes": [
+        "M",
+        "L"
+      ],
       "colors": [
         "brown",
         "black"
       ],
       "imageUrl": "https://i.pinimg.com/736x/ef/e2/a5/efe2a5cc0ba3cee7042f35035cd773ee.jpg",
       "description": "Elegant leather handbag with gold detailing.",
-      "stock": 70,
+      "stock": 69,
       "rating": 4.6,
       "tags": [
         "bag",
@@ -151,7 +152,8 @@
       ],
       "discount": 15,
       "isFeatured": false,
-      "createdAt": "2025-06-18T10:00:00Z"
+      "createdAt": "2025-06-18T10:00:00Z",
+      "status": "active"
     },
     {
       "id": "8",
@@ -177,7 +179,8 @@
       ],
       "discount": 20,
       "isFeatured": false,
-      "createdAt": "2025-06-19T15:30:00Z"
+      "createdAt": "2025-06-19T15:30:00Z",
+      "status": "active"
     },
     {
       "id": "14",
@@ -203,7 +206,8 @@
       ],
       "discount": 15,
       "isFeatured": false,
-      "createdAt": "2025-06-24T14:15:00Z"
+      "createdAt": "2025-06-24T14:15:00Z",
+      "status": "active"
     },
     {
       "id": "9",
@@ -230,9 +234,10 @@
       ],
       "discount": 10,
       "isFeatured": true,
-      "createdAt": "2025-06-20T10:15:00Z"
+      "createdAt": "2025-06-20T10:15:00Z",
+      "status": "active"
     },
-     {
+    {
       "id": "1",
       "title": "Men's Classic T-Shirt",
       "category": "men",
@@ -257,7 +262,8 @@
       ],
       "discount": 10,
       "isFeatured": true,
-      "createdAt": "2025-06-10T10:00:00Z"
+      "createdAt": "2025-06-10T10:00:00Z",
+      "status": "active"
     },
     {
       "id": "2",
@@ -283,7 +289,8 @@
       ],
       "discount": 15,
       "isFeatured": false,
-      "createdAt": "2025-06-12T11:30:00Z"
+      "createdAt": "2025-06-12T11:30:00Z",
+      "status": "active"
     },
     {
       "id": "10",
@@ -306,7 +313,8 @@
       ],
       "discount": 5,
       "isFeatured": false,
-      "createdAt": "2025-06-21T11:45:00Z"
+      "createdAt": "2025-06-21T11:45:00Z",
+      "status": "active"
     },
     {
       "id": "11",
@@ -323,7 +331,7 @@
         "blue"
       ],
       "imageUrl": "https://i.pinimg.com/736x/64/ae/ab/64aeab6cc65617f4b1f1e1ac90b172f2.jpg",
-      "description": "Light and breathable cotton shorts for kids\u2019 summer fun.",
+      "description": "Light and breathable cotton shorts for kids’ summer fun.",
       "stock": 60,
       "rating": 4.1,
       "tags": [
@@ -333,7 +341,8 @@
       ],
       "discount": 5,
       "isFeatured": false,
-      "createdAt": "2025-06-20T09:30:00Z"
+      "createdAt": "2025-06-20T09:30:00Z",
+      "status": "active"
     },
     {
       "id": "12",
@@ -360,7 +369,8 @@
       ],
       "discount": 10,
       "isFeatured": true,
-      "createdAt": "2025-06-22T08:00:00Z"
+      "createdAt": "2025-06-22T08:00:00Z",
+      "status": "active"
     },
     {
       "id": "13",
@@ -386,7 +396,8 @@
       ],
       "discount": 20,
       "isFeatured": true,
-      "createdAt": "2025-06-23T10:30:00Z"
+      "createdAt": "2025-06-23T10:30:00Z",
+      "status": "active"
     },
     {
       "id": "6",
@@ -413,9 +424,280 @@
       ],
       "discount": 10,
       "isFeatured": true,
-      "createdAt": "2025-06-17T12:00:00Z"
+      "createdAt": "2025-06-17T12:00:00Z",
+      "status": "active"
+    },
+    {
+      "id": "20be",
+      "title": "Men's Sports Jacket",
+      "category": "men",
+      "price": "1299",
+      "sizes": [
+        "M",
+        "L"
+      ],
+      "colors": [
+        "black",
+        "blue"
+      ],
+      "imageUrl": "https://res.cloudinary.com/db2hnirwi/image/upload/v1752578535/jmdrsmq5ymzld3gzvfya.jpg",
+      "description": "Water-resistant sports jacket ideal for workouts.",
+      "stock": "15",
+      "tags": [],
+      "discount": "15",
+      "isFeatured": true,
+      "createdAt": "",
+      "status": "active"
+    },
+    {
+      "id": "80b6",
+      "title": "men's shirt",
+      "category": "men",
+      "price": "1999",
+      "sizes": [
+        "M",
+        "L"
+      ],
+      "colors": [
+        "black",
+        "blue"
+      ],
+      "imageUrl": "https://res.cloudinary.com/db2hnirwi/image/upload/v1752745017/hy4jgtxo13ljdk4ajwck.jpg",
+      "description": "mens black jacket",
+      "stock": "12",
+      "tags": [],
+      "discount": "10",
+      "isFeatured": true,
+      "createdAt": "7/17/2025, 3:07:36 PM"
     }
   ],
-  "orders": [],
+  "carts": [
+    {
+      "id": "4d87",
+      "userId": "be3f",
+      "items": []
+    },
+    {
+      "id": "7277",
+      "userId": "0c87",
+      "items": []
+    },
+    {
+      "id": "0641",
+      "userId": "be3f",
+      "items": []
+    }
+  ],
+  "orders": [
+    {
+      "id": "4175",
+      "userId": null,
+      "products": [
+        {
+          "id": "7",
+          "title": "Women's Floral Cottagecore Dress",
+          "category": "women",
+          "price": 2499,
+          "sizes": [
+            "M",
+            "L"
+          ],
+          "colors": [
+            "brown",
+            "black"
+          ],
+          "imageUrl": "https://i.pinimg.com/736x/ef/e2/a5/efe2a5cc0ba3cee7042f35035cd773ee.jpg",
+          "description": "Elegant leather handbag with gold detailing.",
+          "stock": 70,
+          "rating": 4.6,
+          "tags": [
+            "bag",
+            "women",
+            "accessory"
+          ],
+          "discount": 15,
+          "isFeatured": false,
+          "createdAt": "2025-06-18T10:00:00Z",
+          "status": "active",
+          "quantity": 1
+        }
+      ],
+      "orderedAt": "2025-07-16T12:08:01.215Z",
+      "status": "Pending",
+      "address": {
+        "fullName": "jasil",
+        "phone": "+971525252683",
+        "street": "pookkottur",
+        "city": "malappuram",
+        "PIN": "123",
+        "paymentMethod": "upi"
+      }
+    },
+    {
+      "id": "809e",
+      "userId": "0c87",
+      "products": [
+        {
+          "id": "5",
+          "title": "Men's Casual Blazer Jacket ",
+          "category": "men",
+          "price": 2999,
+          "sizes": [
+            "S",
+            "L",
+            "XL"
+          ],
+          "colors": [
+            "black",
+            "red"
+          ],
+          "imageUrl": "https://i.pinimg.com/736x/ab/66/2a/ab662a44f01a4945a87f2304f4714d3c.jpg",
+          "description": " Slim-fit lightweight sports jacket with one-button closure two flap pockets, and an inside pocket.",
+          "stock": 60,
+          "rating": 4.7,
+          "tags": [
+            "shoes",
+            "sports",
+            "men"
+          ],
+          "discount": 25,
+          "isFeatured": true,
+          "createdAt": "2025-06-16T08:30:00Z",
+          "status": "active",
+          "quantity": 1
+        },
+        {
+          "id": "4",
+          "title": "Men's Formal Shirt",
+          "category": "men",
+          "price": 1199,
+          "sizes": [
+            "M",
+            "L",
+            "XL"
+          ],
+          "colors": [
+            "white",
+            "blue"
+          ],
+          "imageUrl": "https://i.pinimg.com/736x/75/33/0b/75330bea2306e1a8f21d79132b139549.jpg",
+          "description": "Slim-fit formal shirt suitable for office wear.",
+          "stock": 80,
+          "rating": 4,
+          "tags": [
+            "shirt",
+            "formal",
+            "men"
+          ],
+          "discount": 5,
+          "isFeatured": false,
+          "createdAt": "2025-06-15T09:45:00Z",
+          "status": "active",
+          "quantity": 1
+        }
+      ],
+      "orderedAt": "2025-07-17T11:58:57.347Z",
+      "status": "Pending",
+      "address": {
+        "fullName": "jasil",
+        "phone": "+971525252683",
+        "street": "pookkottur",
+        "city": "malappuram",
+        "PIN": "9876",
+        "paymentMethod": "upi"
+      }
+    },
+    {
+      "id": "27f7",
+      "userId": "0c87",
+      "products": [
+        {
+          "id": "4",
+          "title": "Men's Formal Shirt",
+          "category": "men",
+          "price": 1199,
+          "sizes": [
+            "M",
+            "L",
+            "XL"
+          ],
+          "colors": [
+            "white",
+            "blue"
+          ],
+          "imageUrl": "https://i.pinimg.com/736x/75/33/0b/75330bea2306e1a8f21d79132b139549.jpg",
+          "description": "Slim-fit formal shirt suitable for office wear.",
+          "stock": 79,
+          "rating": 4,
+          "tags": [
+            "shirt",
+            "formal",
+            "men"
+          ],
+          "discount": 5,
+          "isFeatured": false,
+          "createdAt": "2025-06-15T09:45:00Z",
+          "status": "active",
+          "quantity": 1
+        }
+      ],
+      "orderedAt": "2025-07-18T05:44:37.498Z",
+      "status": "Pending",
+      "address": {
+        "fullName": "jasil",
+        "phone": "+971525252683",
+        "street": "pookkottur",
+        "city": "malappuram",
+        "PIN": "123",
+        "paymentMethod": "card"
+      }
+    }
+  ],
+  "shipping": [
+    {
+      "id": "32d2",
+      "fullName": "jasil",
+      "phone": "+971525252683",
+      "street": "pookkottur",
+      "city": "malappuram",
+      "PIN": "123",
+      "paymentMethod": "upi"
+    },
+    {
+      "id": "3273",
+      "fullName": "jasil",
+      "phone": "+971525252683",
+      "street": "pookkottur",
+      "city": "malappuram",
+      "PIN": "9876",
+      "paymentMethod": "upi"
+    },
+    {
+      "id": "cb8c",
+      "fullName": "jasil",
+      "phone": "+971525252683",
+      "street": "pookkottur",
+      "city": "malappuram",
+      "PIN": "123",
+      "paymentMethod": "card"
+    }
+  ],
+  "wishlist": [
+    {
+      "id": "af41",
+      "UserId": "be3f",
+      "wishitem": []
+    },
+    {
+      "id": "b2bf",
+      "UserId": "0c87",
+      "wishitem": []
+    },
+    {
+      "id": "dc8c",
+      "UserId": "be3f",
+      "wishitem": []
+    }
+  ],
   "coupons": []
 }

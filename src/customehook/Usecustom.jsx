@@ -3,25 +3,24 @@ import React, { useEffect, useState } from 'react'
 import { data } from 'react-router-dom'
 
 function Usecustom(url) {
-const[products,setproducts]=useState(null)
+const [data, setData] = useState(null)
 
-useEffect(()=>{
-  const usfetch= async ()=>{
-    try{
-  const {data:productdata}= await axios.get(url)
-  if(productdata){
-    setproducts(productdata)
+useEffect(() => {
+  if (!url) return
+
+  const fetchData = async () => {
+    try {
+      const res = await axios.get(url)
+      setData(res.data)
+    } catch (err) {
+      console.error("❌ Usecustom fetch error:", err.message)
+    }
   }
-  }
-catch(err){
-console.error(err.message);
 
-}}
+  fetchData()
+}, [url])
 
-usfetch()
- 
-},[url])
-  return {products}
+return { data } 
   
 }
 

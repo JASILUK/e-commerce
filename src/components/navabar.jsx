@@ -1,42 +1,91 @@
-import React, { useContext, useEffect, useState } from 'react'
-import {  NavLink, useNavigate} from 'react-router-dom'
-import styles from './navbar.module.css'
-import { globelcontext } from '../context/userConetxt'
-import logo from '../assets/logo.png'
+import React, { useContext, useEffect, useState } from 'react';
+import { NavLink, useNavigate } from 'react-router-dom';
+import styles from './navbar.module.css';
+import { globelcontext } from '../context/userConetxt';
+import logo from  '../assets/logo.png'
+import '@fortawesome/fontawesome-free/css/all.min.css';
+import { Crtcontext } from '../context/CartContext';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faHeart as solidHeart } from '@fortawesome/free-solid-svg-icons';
+import { faHeart as regularHeart } from '@fortawesome/free-regular-svg-icons';
+import { wishcontext } from '../context/Wishlist';
+
+
 function Navabar() {
-  const {user,logout}=useContext(globelcontext)
-  const[scrll,setscroll]=useState(false)
-  const navigate=useNavigate()
-  useEffect(()=>{
-    const scrollfunc=()=>{
-      if (window.scrollY>40){
-        setscroll(true)
-      }else{
-        setscroll(false)
-      }
-    }
-  window.addEventListener('scroll',scrollfunc)
+  const { user, logout } = useContext(globelcontext);
+  const [scrll, setscroll] = useState(false);
+  const navigate = useNavigate();
+  const { cartdata } = useContext(Crtcontext);
+  const {wishlistdata} =useContext(wishcontext)
 
-  return ()=> window.removeEventListener('scroll',scrollfunc)
-  },[])
-  
+
+  useEffect(() => {
+    const scrollfunc = () => {
+      setscroll(window.scrollY > 40);
+    };
+    window.addEventListener('scroll', scrollfunc);
+    return () => window.removeEventListener('scroll', scrollfunc);
+  }, []);
+
+ const handleLogout = () => {
+  const confirmLogout = window.confirm("Do you want to log out?");
+  if (confirmLogout) {
+    logout();
+    navigate('/collection', { replace: true });
+  }
+};
+
+
   return (
-    <div className={ `${styles.navbar}  ${(scrll)?styles.scrolling:""}`}>
-    <NavLink to='/' style={{textDecoration:"none"}}> <span className={styles.logopng}><img src={logo} alt="" className={styles.logo}/></span></NavLink>
-    <NavLink to='/collection' style={{textDecoration:"none"}}><span  className={styles.navlink}>COLECTIONS</span></NavLink>
-    <NavLink to='/men'  style={{textDecoration:"none"}}><span className={styles.navlink}>MEN</span></NavLink>
-    <NavLink to='/women' style={{textDecoration:"none"}}><span className={styles.navlink}>WOMEN</span></NavLink>
-    <NavLink to='/kids' style={{textDecoration:"none"}}><span className={styles.navlink}>KIDS</span></NavLink>
-    <NavLink to='/support' style={{textDecoration:"none"}}><span className={styles.navlink}>SUPPORT</span></NavLink>
+    <div className={`${styles.navbar} ${scrll ? styles.scrolling : ''}` }>
+      
+      <NavLink to='/' style={{ textDecoration: 'none' }} className={styles.loglink}>
+        <span style={{color:"orange"}}>Florza</span>
+        <span className={styles.logopng}>
+          <img src={logo} alt="Logo" className={styles.logo} />
+        </span>
+      </NavLink>
+    <div className={styles.jsutify}>
+      <NavLink to='/collection' className={styles.navlink}>COLLECTIONS</NavLink>
+     
+      <NavLink to='/support' className={styles.navlink}>SUPPORT</NavLink>
 
-    {(user)?
-    <span>Hi,{user.name} <button onClick={()=>{logout();console.log('hiiiiiiiiiiii');navigate('/login',{replace:true}); }}>LogOut</button></span>
-    : <NavLink to='/login'><span className={styles.navlink}>Login</span></NavLink>}
+      <NavLink to='/wishlist' style={{position:'relative'}}>
+         <FontAwesomeIcon
+              icon={ solidHeart }
+              style={{
+                fontSize: '20px',
+                color: 'white',
+                cursor: 'pointer',
+                transition: 'color 0.3s',
+              }}
+            />
+            {
+              wishlistdata?.length>0 && <span className={styles.cartcount}>{wishlistdata.length}</span> 
+            }
+
+      </NavLink>
+
+        <NavLink to='/cart' className={styles.carticon} style={{ position: 'relative' }}>
+           <i className="fas fa-shopping-cart"></i>
+          {cartdata.length > 0 && (
+            <span className={styles.cartcount}>{cartdata.length}</span>
+            )}
+        </NavLink>
+
+      {user ? (
+        <div className={styles.userBox}>
+          <span className={styles.username}>Hi, {user.name}</span>
+          <button onClick={handleLogout} className={styles.logoutbtn}>Logout</button>
+        </div>
+      ) : (
+        <NavLink to='/login' className={styles.navlink}>Login</NavLink>
+      )}
+
     
-
-
+</div>
     </div>
-  )
+  );
 }
 
-export default Navabar
+export default Navabar;

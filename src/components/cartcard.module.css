@@ -1,33 +1,71 @@
-.cardparent{
-    display: flex;
-    justify-content: baseline;
-    width:80%;
-    height: 200px;
-    border-bottom: 1px solid rgb(197, 195, 195);
-    border-collapse: collapse;
+.cardparent {
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  background-color: #fff;
+  transition: all 0.3s ease;
+  width: 500px;
 }
-.imagediv {
-    height: 100%;
-    margin: 5px;
 
+.cardparent:hover {
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
 }
-.imagediv img{
-    height: 60%;
-    width: 100px;
+
+.image {
+  max-width: 120px;
+  max-height: 140px;
+  border-radius: 8px;
+  object-fit: cover;
 }
-.discdiv{
-    flex:2;
-    margin-left: 5px;
-    display: flex;
-    flex-direction: column;
-    justify-content: start;
-    
+
+.details {
+  display: flex;
+  flex-direction: column;
 }
-.incdic{
-    background-color: transparent;
-    border-color: transparent;
-    background-color: rgb(239, 241, 241);
-    border-radius: 50%;
-    cursor: pointer;
+
+.removebtn {
+  border: none;
+  background: transparent;
+  font-size: 16px;
+  cursor: pointer;
+  color: #888;
+  transition: color 0.2s;
 }
+
+.removebtn:hover {
+  color: red;
+}
+
+.incdic {
+  background-color: #f1f5f9;
+  border: none;
+  width: 30px;
+  height: 30px;
+  font-weight: bold;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.2s ease;
+}
+
+.incdic:hover {
+  background-color: #e2e8f0;
+}
+
+.colorDot {
+  display: inline-block;
+  height: 20px;
+  width: 20px;
+  margin-right: 5px;
+  border-radius: 50%;
+  border: 1px solid #ccc;
+}
+
+.disable{
+  filter: blur(.8px);
+  opacity: .5px;
+  pointer-events: none;
+  background-color: #f9f1f0;
+  transition: all 5.ms ease;
+}
+
 

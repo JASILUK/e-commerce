@@ -1,0 +1,161 @@
+.admin-container {
+  display: flex;
+  min-height: 100vh;
+  font-family: 'Segoe UI', sans-serif;
+  width: 100%;
+  
+  
+}
+
+.admin-sidebar {
+  background-color: #17104f;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  transition: width 0.3s ease;
+  position: fixed;
+  height: 100vh;
+  width: 18%;
+
+}
+
+.admin-sidebar.collapsed {
+  width: 70px;
+}
+
+.sidebar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.toggle-btn {
+  background: none;
+  border: none;
+  color: #ccc;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+.admin-sidebar nav a,
+.logout-btn {
+  display: flex;
+  align-items: center;
+  color: #fff;
+  text-decoration: none;
+  padding: 0.75rem;
+  border-radius: 5px;
+  margin-bottom: 0.5rem;
+  transition: all 0.3s ease;
+}
+
+.admin-sidebar nav a:hover,
+.admin-sidebar nav a.active {
+  background-color: #4f4860;
+}
+
+.logout-btn {
+  background-color: #cf2e2e;
+  border: none;
+  cursor: pointer;
+  justify-content: center;
+}
+
+.admin-main {
+  margin-left: 18%; 
+  padding: 1rem;
+  background-color: #f1f2f6;
+  width: 100%;
+  min-height: 100vh;
+}
+
+
+.admin-header {
+  background: #ffffff;
+  padding: 1rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.admin-content {
+  background: #ffffff;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(133, 3, 3, 0.1);
+}
+
+.admin-dashboard h2 {
+  margin-bottom: 1rem;
+
+}
+
+.admin-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 1rem;
+}
+
+.admin-card {
+  background-color: rgba(75, 60, 104, 0.7);
+  color: #fff;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  text-align: center;
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.admin-card h4 {
+  margin-bottom: 0.5rem;
+  font-size: 1.2rem;
+}
+.admin-graph {
+  margin-top: 2rem;
+  background-color: #f9f9f9;
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+.admin-graph h3 {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.adminnav {
+  display: flex;
+  gap: 20px;
+  padding: 15px 20px;
+  background-color: #f5f5f5;
+  border-bottom: 1px solid #ddd;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.adminnav a {
+  text-decoration: none;
+  color: #333;
+  padding: 8px 16px;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+  font-weight: 500;
+}
+
+.adminnav a:hover {
+  background-color: rgb(81, 158, 240);
+}
+
+.navactive {
+  background-color: rgb(0, 123, 255);
+  color: #fff !important;
+  font-weight: bold;
+}
+
+.admin-content {
+  padding: 20px;
+  font-family: 'Segoe UI', sans-serif;
+}

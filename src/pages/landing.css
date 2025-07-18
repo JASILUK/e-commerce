@@ -1,0 +1,113 @@
+.landing-page {
+  font-family: 'Segoe UI', sans-serif;
+  color: #333;
+}
+
+.landing-header {
+  background-color: #ffffff;
+  padding: 15px 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+}
+
+.landing-header .logo {
+  font-size: 1.5em;
+  font-weight: bold;
+  color: #4f46e5;
+}
+
+.landing-header nav a {
+  margin-left: 20px;
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+}
+.hero {
+  height: 100vh;
+  width: 100%;
+  background-color: #5c3e70;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 20px;
+  overflow: hidden;
+}
+
+.hero-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap-reverse;
+  gap: 30px;
+  max-width: 1200px;
+  width: 100%;
+}
+
+.hero-person {
+  max-height: 90vh;
+  height: auto;
+  width: auto;
+  object-fit: contain;
+}
+
+.hero-text {
+  color: white;
+  max-width: 500px;
+  text-align: center;
+}
+
+.hero-text h1 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.hero-text p {
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+}
+
+.hero-text button {
+  padding: 12px 30px;
+  font-size: 1rem;
+  background-color: white;
+  color: #4f46e5;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.hero-text button:hover {
+  background-color: #f0f0f0;
+}
+
+
+.highlights {
+  display: flex;
+  justify-content: space-around;
+  padding: 50px 10px;
+  background-color: #f3f4f6;
+  text-align: center;
+}
+
+.highlight-box {
+  width: 30%;
+  padding: 20px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+}
+
+.highlight-box h2 {
+  margin-bottom: 10px;
+  color: #4f46e5;
+}
+
+.landing-footer {
+  background-color: #1f2937;
+  color: white;
+  text-align: center;
+  padding: 20px;
+}

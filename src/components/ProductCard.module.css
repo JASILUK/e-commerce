@@ -8,6 +8,7 @@
   max-width: 300px;
   height: 350px;
   margin: 10px;
+  position: relative;
 }
 
 .card:hover {
@@ -50,4 +51,23 @@
 .discount {
   font-size: 14px;
   color: #dc2626;
+}
+
+.wish{
+  border-radius: 50%;
+  border-color: transparent;
+  width: 30px;
+  height: 30x;
+ visibility:hidden;
+ background-color: transparent;
+ position: absolute;
+ top: 2px;
+ right: 10px;
+}
+
+.card:hover .wish{
+visibility:visible;
+}
+.liked{
+  color: red;
 }

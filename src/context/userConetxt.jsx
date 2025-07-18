@@ -10,6 +10,7 @@ useEffect(()=>{
     const islogged=localStorage.getItem('currentuser')
     if(islogged){setuser(JSON.parse(islogged))}
     setload(false)
+    
 },[])
 
 const login=(userdata)=>{
