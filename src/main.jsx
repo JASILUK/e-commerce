@@ -13,7 +13,7 @@ createRoot(document.getElementById('root')).render(
   <UserConetxt>
     <CartContext>
       <Wishlist>
-    <BrowserRouter>
+    <BrowserRouter basename='/e-commerce'>
       <App />
     </BrowserRouter>
        </Wishlist>
