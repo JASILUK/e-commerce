@@ -28,6 +28,7 @@ import Productcollection from '../adminpanel/Productcollection'
 import Productadd from '../adminpanel/Productadd'
 import Manageuserdetails from '../adminpanel/Manageuserdetails'
 import Notfound from '../pages/Notfound'
+import ConfirmEmail from '../pages/emailconfirm'
 
 function Publicrout() {
   return (
@@ -57,6 +58,7 @@ function Publicrout() {
 
         </Route>
         <Route element={<Nonelogrout/>}>
+            <Route path='/email-confirm/:key' element={<ConfirmEmail/>}/>
             <Route path='/login' element={<Login/>}/>
             <Route path='/register' element={<Register/>}/>
         </Route>

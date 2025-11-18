@@ -2,70 +2,43 @@ import React, { useContext, useState } from 'react'
 import { globelcontext } from '../context/userConetxt'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify';
 
 function Login() {
+ const { login,resendEmail } = useContext(globelcontext);
 
-const {login}=useContext(globelcontext)
-const [email,setemail]=useState("")
-const [password,setpass]=useState("")
-const [block,setblock]=useState(false)
-const navigat=useNavigate()
-const[erroor,seterror]=useState(false)
-const changemail=(event)=>{
-    setemail(event.target.value.trim())
-}
-const chhangepass=(event)=>{
-    setpass(event.target.value.trim())
-}
+  const [email, setEmail] = useState("");
+  const [password, setPass] = useState("");
+  const [errorMsg, setErrorMsg] = useState("");
+  const [needsVerification, setNeedsVerification] = useState(false);
 
-const handlesubmit = async (eve) => {
-  eve.preventDefault();
+  const navigate = useNavigate();
 
-  if (!email || !password) {
-    seterror(true);
-    return;
-  }
+  const handleLogin = async (e) => {
+    e.preventDefault();
 
-  try {
-    const { data: ismatch } = await axios.get(`http://localhost:5000/users`, {
-      params: { email: email, password: password }
-    }) || [];
+    const result = await login({ email, password });
 
-    if (ismatch.length > 0) {
-      const userin = ismatch[0];
-      console.log("🧠 Logged in user:", userin);
-
-      if(userin.isblocked){
-        return setblock(true)
-      }
-      login({
-        id: userin.id,
-        email: userin.email,
-        password: userin.password,
-        name: userin.name,
-        role: userin.role
-      });
-
-      seterror(false);
-      setblock(false);
-      setemail('');
-      setpass('');
-
-      if (userin.role === 'admin') {
-        navigat('/admin/dashboard', { replace: true });
-      } else if (userin.role === 'user') {
-        navigat('/collection', { replace: true });
-      } else {
-        seterror(true);
-      }
-    } else {
-      seterror(true);
+    if (result.success) {
+      toast.success('loged successfull')
+      navigate("/collection");
+      return;
     }
-  } catch (err) {
-    console.error("Login error:", err);
-    seterror(true);
-  }
+
+    setErrorMsg(result.message);
+
+   if (result.message?.toLowerCase().includes("not verified")) {
+    setNeedsVerification(true);
+}
+
+  };
+
+const handleResend = async () => {
+  const ok = await resendEmail(email);
+  if (ok) toast.info("Verification email sent again!");
+  else toast.error("Failed to resend verification email");
 };
+
 
 
   return (
@@ -73,24 +46,28 @@ const handlesubmit = async (eve) => {
       <div className="card shadow p-4" style={{ width: "100%", maxWidth: "400px" }}>
         <h2 className="text-center mb-4">LogIn Here</h2>
         <div>
-          <form action="" onSubmit={handlesubmit}>
+          {needsVerification && ( 
+          <button onClick={handleResend} className="btn btn-warning">
+              Resend Verification Email
+            </button>
+          )}
+          <form action="" onSubmit={handleLogin}>
             <div className="mb-3">
               <label className="form-label">Email</label>
-              <input type="text" className="form-control" name='email' value={email} onChange={changemail} required />
+              <input type="text" className="form-control" name='email' value={email} onChange={(eve)=> setEmail(eve.target.value)} required />
             </div>
             <div className="mb-3">
               <label className="form-label">Password</label>
-              <input type="password" className="form-control" name='password' value={password} onChange={chhangepass} required />
+              <input type="password" className="form-control" name='password' value={password} onChange={(eve)=> setPass(eve.target.value)} required />
             </div>
             <div className="d-grid mb-2">
               <button type='submit' className="btn btn-primary">Log In</button>
             </div>
-            {erroor && <p className="text-danger text-center">incorrect password or email</p>}
-            {block && <p  className="text-danger text-center"> your account is blocked</p>}
+            {errorMsg && <p className="text-danger text-center">{errorMsg}</p>}
           </form>
         </div>
         <div className="text-center mt-3">
-          <button className="btn btn-outline-secondary btn-sm" onClick={()=>navigat('/register')}>Register</button>
+          <button className="btn btn-outline-secondary btn-sm" onClick={()=>navigate ('/register')}>Register</button>
         </div>
       </div>
     </div>

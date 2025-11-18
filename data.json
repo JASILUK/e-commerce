@@ -15,6 +15,14 @@
       "password": "1234",
       "role": "user",
       "isblocked": false
+    },
+    {
+      "id": "9ea1",
+      "name": "nabeel",
+      "email": "nabeel@gmail.com",
+      "password": "1234",
+      "role": "user",
+      "isblocked": false
     }
   ],
   "products": [
@@ -225,7 +233,7 @@
       ],
       "imageUrl": "https://i.pinimg.com/736x/ac/b0/06/acb0060af440d91ef6148e9286dcf99f.jpg",
       "description": "Stretchable yoga pants for daily workout.",
-      "stock": 100,
+      "stock": 95,
       "rating": 4.5,
       "tags": [
         "activewear",
@@ -480,11 +488,74 @@
     {
       "id": "7277",
       "userId": "0c87",
-      "items": []
+      "items": [
+        {
+          "id": "3",
+          "title": "Men's Sports Jacket",
+          "category": "men",
+          "price": "2399",
+          "sizes": [
+            "M",
+            "L"
+          ],
+          "colors": [
+            "navy",
+            "gray"
+          ],
+          "imageUrl": "https://i.pinimg.com/736x/59/86/00/59860092005c965b8af3052803d43c34.jpg",
+          "description": "Water-resistant sports jacket ideal for workouts.",
+          "stock": 21,
+          "rating": 4.6,
+          "tags": [
+            "jacket",
+            "sports",
+            "men"
+          ],
+          "discount": 20,
+          "isFeatured": true,
+          "createdAt": "2025-06-14T14:00:00Z",
+          "status": "active",
+          "quantity": 1
+        },
+        {
+          "id": "4",
+          "title": "Men's Formal Shirt",
+          "category": "men",
+          "price": 1199,
+          "sizes": [
+            "M",
+            "L",
+            "XL"
+          ],
+          "colors": [
+            "white",
+            "blue"
+          ],
+          "imageUrl": "https://i.pinimg.com/736x/75/33/0b/75330bea2306e1a8f21d79132b139549.jpg",
+          "description": "Slim-fit formal shirt suitable for office wear.",
+          "stock": 78,
+          "rating": 4,
+          "tags": [
+            "shirt",
+            "formal",
+            "men"
+          ],
+          "discount": 5,
+          "isFeatured": false,
+          "createdAt": "2025-06-15T09:45:00Z",
+          "status": "active",
+          "quantity": 1
+        }
+      ]
     },
     {
       "id": "0641",
       "userId": "be3f",
+      "items": []
+    },
+    {
+      "id": "28ce",
+      "userId": "9ea1",
       "items": []
     }
   ],
@@ -642,7 +713,7 @@
         }
       ],
       "orderedAt": "2025-07-18T05:44:37.498Z",
-      "status": "Pending",
+      "status": "Delivered",
       "address": {
         "fullName": "jasil",
         "phone": "+971525252683",
@@ -650,6 +721,51 @@
         "city": "malappuram",
         "PIN": "123",
         "paymentMethod": "card"
+      }
+    },
+    {
+      "id": "4912",
+      "userId": "9ea1",
+      "products": [
+        {
+          "id": "9",
+          "title": "Women's Yoga Pants",
+          "category": "women",
+          "price": 899,
+          "sizes": [
+            "S",
+            "M",
+            "L"
+          ],
+          "colors": [
+            "gray",
+            "black"
+          ],
+          "imageUrl": "https://i.pinimg.com/736x/ac/b0/06/acb0060af440d91ef6148e9286dcf99f.jpg",
+          "description": "Stretchable yoga pants for daily workout.",
+          "stock": 100,
+          "rating": 4.5,
+          "tags": [
+            "activewear",
+            "yoga",
+            "women"
+          ],
+          "discount": 10,
+          "isFeatured": true,
+          "createdAt": "2025-06-20T10:15:00Z",
+          "status": "active",
+          "quantity": 5
+        }
+      ],
+      "orderedAt": "2025-08-01T11:47:26.337Z",
+      "status": "Pending",
+      "address": {
+        "fullName": "smarty boy",
+        "phone": "+971525252683",
+        "street": "pookkottur",
+        "city": "malappuram",
+        "PIN": "123",
+        "paymentMethod": "upi"
       }
     }
   ],
@@ -680,6 +796,15 @@
       "city": "malappuram",
       "PIN": "123",
       "paymentMethod": "card"
+    },
+    {
+      "id": "b6bf",
+      "fullName": "smarty boy",
+      "phone": "+971525252683",
+      "street": "pookkottur",
+      "city": "malappuram",
+      "PIN": "123",
+      "paymentMethod": "upi"
     }
   ],
   "wishlist": [
@@ -697,6 +822,39 @@
       "id": "dc8c",
       "UserId": "be3f",
       "wishitem": []
+    },
+    {
+      "id": "2fa1",
+      "UserId": "9ea1",
+      "wishitem": [
+        {
+          "id": "3",
+          "title": "Men's Sports Jacket",
+          "category": "men",
+          "price": "2399",
+          "sizes": [
+            "M",
+            "L"
+          ],
+          "colors": [
+            "navy",
+            "gray"
+          ],
+          "imageUrl": "https://i.pinimg.com/736x/59/86/00/59860092005c965b8af3052803d43c34.jpg",
+          "description": "Water-resistant sports jacket ideal for workouts.",
+          "stock": 21,
+          "rating": 4.6,
+          "tags": [
+            "jacket",
+            "sports",
+            "men"
+          ],
+          "discount": 20,
+          "isFeatured": true,
+          "createdAt": "2025-06-14T14:00:00Z",
+          "status": "active"
+        }
+      ]
     }
   ],
   "coupons": []

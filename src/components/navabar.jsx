@@ -8,6 +8,7 @@ import { Crtcontext } from '../context/CartContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart as solidHeart } from '@fortawesome/free-solid-svg-icons';
 import { faHeart as regularHeart } from '@fortawesome/free-regular-svg-icons';
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { wishcontext } from '../context/Wishlist';
 
 
@@ -17,6 +18,8 @@ function Navabar() {
   const navigate = useNavigate();
   const { cartdata } = useContext(Crtcontext);
   const {wishlistdata} =useContext(wishcontext)
+  const [showLogoutBox, setShowLogoutBox] = useState(false);
+
 
 
   useEffect(() => {
@@ -27,13 +30,7 @@ function Navabar() {
     return () => window.removeEventListener('scroll', scrollfunc);
   }, []);
 
- const handleLogout = () => {
-  const confirmLogout = window.confirm("Do you want to log out?");
-  if (confirmLogout) {
-    logout();
-    navigate('/collection', { replace: true });
-  }
-};
+ 
 
 
   return (
@@ -74,13 +71,46 @@ function Navabar() {
         </NavLink>
 
       {user ? (
-        <div className={styles.userBox}>
-          <span className={styles.username}>Hi, {user.name}</span>
-          <button onClick={handleLogout} className={styles.logoutbtn}>Logout</button>
+  <div className={styles.userBox}>
+    <span className={styles.username}>Hi, {user.username}</span>
+
+    <button 
+      onClick={() => setShowLogoutBox(!showLogoutBox)} 
+      className={styles.logoutbtn}
+    >
+      Logout
+    </button>
+
+  
+    {showLogoutBox && (
+      <div className={styles.logoutPopup}>
+        <p>Are you sure?</p>
+        <div className={styles.popupButtons}>
+          <button 
+            className={styles.confirmBtn} 
+            onClick={() => {
+              logout();
+              setShowLogoutBox(false);
+              navigate('/collection');
+            }}
+          >
+            Yes, Logout
+          </button>
+
+          <button 
+            className={styles.cancelBtn} 
+            onClick={() => setShowLogoutBox(false)}
+          >
+            <FontAwesomeIcon icon={faTimes} size="lg" />
+          </button>
         </div>
-      ) : (
-        <NavLink to='/login' className={styles.navlink}>Login</NavLink>
-      )}
+      </div>
+    )}
+
+  </div>
+) : (
+  <NavLink to='/login' className={styles.navlink}>Login</NavLink>
+)}
 
     
 </div>
