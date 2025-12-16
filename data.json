@@ -97,7 +97,7 @@
       ],
       "imageUrl": "https://i.pinimg.com/736x/ab/66/2a/ab662a44f01a4945a87f2304f4714d3c.jpg",
       "description": " Slim-fit lightweight sports jacket with one-button closure two flap pockets, and an inside pocket.",
-      "stock": 59,
+      "stock": 58,
       "rating": 4.7,
       "tags": [
         "shoes",
@@ -767,6 +767,50 @@
         "PIN": "123",
         "paymentMethod": "upi"
       }
+    },
+    {
+      "id": "5bb7",
+      "products": [
+        {
+          "id": "5",
+          "title": "Men's Casual Blazer Jacket ",
+          "category": "men",
+          "price": 2999,
+          "sizes": [
+            "S",
+            "L",
+            "XL"
+          ],
+          "colors": [
+            "black",
+            "red"
+          ],
+          "imageUrl": "https://i.pinimg.com/736x/ab/66/2a/ab662a44f01a4945a87f2304f4714d3c.jpg",
+          "description": " Slim-fit lightweight sports jacket with one-button closure two flap pockets, and an inside pocket.",
+          "stock": 59,
+          "rating": 4.7,
+          "tags": [
+            "shoes",
+            "sports",
+            "men"
+          ],
+          "discount": 25,
+          "isFeatured": true,
+          "createdAt": "2025-06-16T08:30:00Z",
+          "status": "active",
+          "quantity": 1
+        }
+      ],
+      "orderedAt": "2025-11-19T07:03:33.254Z",
+      "status": "Pending",
+      "address": {
+        "fullName": "smarty boy",
+        "phone": "+971525252683",
+        "street": "pookkottur",
+        "city": "malappuram",
+        "PIN": "123",
+        "paymentMethod": "upi"
+      }
     }
   ],
   "shipping": [
@@ -799,6 +843,15 @@
     },
     {
       "id": "b6bf",
+      "fullName": "smarty boy",
+      "phone": "+971525252683",
+      "street": "pookkottur",
+      "city": "malappuram",
+      "PIN": "123",
+      "paymentMethod": "upi"
+    },
+    {
+      "id": "c117",
       "fullName": "smarty boy",
       "phone": "+971525252683",
       "street": "pookkottur",

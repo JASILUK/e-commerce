@@ -1,0 +1,115 @@
+.card {
+  background: white;
+  border-radius: 16px;
+  padding: 25px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+}
+
+.green::before {
+  background: linear-gradient(90deg, #10b981, #059669);
+}
+
+.blue::before {
+  background: linear-gradient(90deg, #3b82f6, #2563eb);
+}
+
+.amber::before {
+  background: linear-gradient(90deg, #f59e0b, #d97706);
+}
+
+.purple::before {
+  background: linear-gradient(90deg, #8b5cf6, #7c3aed);
+}
+.danger::before{
+      background: linear-gradient(90deg, #f65c5c, #ed3a3a);
+
+}
+
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 15px;
+}
+
+.cardIcon {
+  width: 50px;
+  height: 50px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.green .cardIcon {
+  background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+  color: #059669;
+}
+
+.blue .cardIcon {
+  background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+  color: #2563eb;
+}
+
+.amber .cardIcon {
+  background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+  color: #d97706;
+}
+
+.purple .cardIcon {
+  background: linear-gradient(135deg, #ede9fe 0%, #ddd6fe 100%);
+  color: #7c3aed;
+}
+
+.danger .cardIcon {
+  background: linear-gradient(135deg, #fee9e9 0%, #fed6d6 100%);
+  color: #ed3a3a;
+}
+
+.cardTrend {
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px 8px;
+  border-radius: 6px;
+}
+
+.trendUp {
+  background: #d1fae5;
+  color: #059669;
+}
+
+.trendDown {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+.cardContent h3 {
+  font-size: 13px;
+  color: #6b7280;
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
+.cardContent .value {
+  font-size: 28px;
+  font-weight: 700;
+  color: #111827;
+}
+

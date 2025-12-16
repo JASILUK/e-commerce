@@ -3,9 +3,14 @@ import { globelcontext } from '../context/userConetxt'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify';
+import { GoogleOAuthProvider, GoogleLogin } from "@react-oauth/google";
+import { googleLogeAPI } from '../api/auth';
+import { useCart } from '../context/CartContext';
+
 
 function Login() {
  const { login,resendEmail } = useContext(globelcontext);
+ const {refreshCart }  = useCart()
 
   const [email, setEmail] = useState("");
   const [password, setPass] = useState("");
@@ -18,10 +23,12 @@ function Login() {
     e.preventDefault();
 
     const result = await login({ email, password });
-
+    await refreshCart()
     if (result.success) {
       toast.success('loged successfull')
-      navigate("/collection");
+      if (res.user?.role === 'SELLER') navigate('/seller/dashboard');
+      else if (res.user?.role === 'ADMIN') navigate('/admin/dashboard');
+      else navigate('/collection');
       return;
     }
 
@@ -41,7 +48,22 @@ const handleResend = async () => {
 
 
 
-  return (
+  const handlegoogle = async (credentialResponse) => {
+  try {
+    const { data } = await googleLogeAPI({ token: credentialResponse.credential });
+    toast.success(data.detail || "Logged in with Google!");
+    login({user:data.user},data);  
+      await refreshCart()
+    navigate("/collection");
+  } catch (err) {
+    const message =
+      err?.response?.data?.detail ||
+      err?.response?.data?.message ||
+      "Google Login Failed";
+    toast.error(message);
+  }
+};
+  return (<GoogleOAuthProvider clientId="572366985213-hvhecnc2ff5pqr585qcbek3obhdhe970.apps.googleusercontent.com">
     <div className="container d-flex justify-content-center align-items-center" style={{ minHeight: "100vh" }}>
       <div className="card shadow p-4" style={{ width: "100%", maxWidth: "400px" }}>
         <h2 className="text-center mb-4">LogIn Here</h2>
@@ -51,6 +73,12 @@ const handleResend = async () => {
               Resend Verification Email
             </button>
           )}
+                    <GoogleLogin
+            onSuccess={handlegoogle}
+            onError={() => toast.error("Google Login Error")}
+          />
+          <hr />
+
           <form action="" onSubmit={handleLogin}>
             <div className="mb-3">
               <label className="form-label">Email</label>
@@ -70,7 +98,7 @@ const handleResend = async () => {
           <button className="btn btn-outline-secondary btn-sm" onClick={()=>navigate ('/register')}>Register</button>
         </div>
       </div>
-    </div>
+    </div></GoogleOAuthProvider>
   )
 }
 

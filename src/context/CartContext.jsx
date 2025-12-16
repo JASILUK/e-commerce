@@ -1,170 +1,108 @@
-import React, { createContext, useContext, useEffect, useState } from 'react';
-import axios from 'axios';
-import { globelcontext } from './userConetxt';
-import Usecustom from '../customehook/Usecustom';
+import { createContext, useContext, useState, useEffect } from "react";
+import { addToCartAPI,
+  getCartItemsAPI,
+  updateCartItemAPI,
+  removecartItemAPI,
+  cleareCartAPI, } from "../api/cart";
 
-export const Crtcontext = createContext();
+export const CartContext = createContext()
 
-function CartContext({ children }) {
-  const { user, loading } = useContext(globelcontext);
-  const [cartdata, setcart] = useState([]);
-  const [cartid, setcartid] = useState(null);
-  const [orders, setorders] = useState([]);
-  const BASE_URL = 'http://localhost:5000';
+export const useCart = () => useContext(CartContext);
 
-  const { data: iscarted } = Usecustom(
-    !loading && user?.id ? `${BASE_URL}/carts?userId=${user.id}` : null
-  );
+export default function CartProvider({ children }) {
+  const [cart, setCart] = useState([]);
+  const [totalItems, setTotalItems] = useState(0);
+  const [totalPrice, setTotalPrice] = useState(0);
+  const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    if (!user) {
-      setcart([]);
-      setcartid(null);
-      setorders([]);
-    }
-  }, [user]);
-
-  useEffect(() => {
-    const setupCart = async () => {
-      if (user && iscarted) {
-        if (iscarted.length > 0) {
-          setcart(iscarted[0].items);
-          setcartid(iscarted[0].id);
-        } else {
-          const res = await axios.post(`${BASE_URL}/carts`, {
-            userId: user.id,
-            items: [],
-          });
-          setcart([]);
-          setcartid(res.data.id);
-        }
-      }
-    };
-
-    setupCart();
-  }, [iscarted, user]);
-
-  useEffect(() => {
-    const fetchOrders = async () => {
-      if (user?.id) {
-        try {
-          const res = await axios.get(`${BASE_URL}/orders?userId=${user.id}`);
-          setorders(res.data);
-        } catch (err) {
-          console.log('Error fetching orders:', err.message);
-        }
-      }
-    };
-
-    fetchOrders();
-  }, [user]);
-
-  if (loading) return null;
-
-  const updateCart = async (items) => {
-    setcart(items);
-    if (cartid) {
-      await axios.patch(`${BASE_URL}/carts/${cartid}`, { items });
-    }
-  };
-
-  const addtocart = async (item) => {
-    const exist = cartdata.find((i) => i.id === item.id);
-    let updated;
-    if (exist) {
-      updated = cartdata.map((i) =>
-        i.id === item.id ? { ...i, quantity: i.quantity + 1 } : i
-      );
-    } else {
-      updated = [...cartdata, { ...item, quantity: 1 }];
-    }
-    updateCart(updated);
-  };
-
-  const removeitem = async (id) => {
-    const updated = cartdata.filter((i) => i.id !== id);
-    updateCart(updated);
-  };
-
-  const clearcart = async () => {
-    updateCart([]);
-  };
-
-  const increaseQuantity = async (id) => {
-    const updated = cartdata.map((item) =>
-      item.id === id ? { ...item, quantity: item.quantity + 1 } : item
-    );
-    updateCart(updated);
-  };
-
-  const decreaseQuantity = async (id) => {
-    const updated = cartdata.map((item) =>
-      item.id === id && item.quantity > 1
-        ? { ...item, quantity: item.quantity - 1 }
-        : item
-    );
-    updateCart(updated);
-  };
-
-  const placeOrder = async (address) => {
-    if (!user || cartdata.length === 0) return;
-
+  // ------------------ FETCH CART ------------------
+  const fetchCart = async () => {
     try {
-      await axios.post(`${BASE_URL}/shipping`, address);
+      const res = await getCartItemsAPI();
+      const data = res.data;
 
-      const { data: allProducts } = await axios.get(`${BASE_URL}/products`);
-
-      const newStockList = allProducts.map((product) => {
-        const cartItem = cartdata.find((c) => c.id === product.id);
-        if (cartItem) {
-          return {
-            ...product,
-            stock: product.stock - cartItem.quantity,
-          };
-        }
-        return product;
-      });
-
-      for (const item of newStockList) {
-        await axios.patch(`${BASE_URL}/products/${item.id}`, {
-          stock: item.stock,
-        });
-      }
-
-      const newOrder = {
-        userId: user.id,
-        products: cartdata,
-        orderedAt: new Date().toISOString(),
-        status: 'Pending',
-        address:address
-      };
-
-      const res = await axios.post(`${BASE_URL}/orders`, newOrder);
-      setorders((prev) => [...prev, res.data]);
-
-      clearcart();
-      alert('🎉 Order placed successfully!');
+      setCart(data.cart_items || []);
+      setTotalItems(data.total_items || 0);
+      setTotalPrice(data.total_price || 0);
     } catch (err) {
-      console.error('❌ Order failed:', err.message);
+      console.error("Error loading cart:", err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchCart();
+  }, []);
+
+  // ------------------ ADD TO CART ------------------
+  const addToCart = async (variant_id, quantity = 1) => {
+    try {
+      const res = await addToCartAPI({ variant_id, quantity });
+      await fetchCart();
+      return { success: true, msg: res.data.message };
+    } catch (err) {
+      const msg =
+        err?.response?.data?.error || "Failed to add item to cart";
+      return { success: false, msg };
+    }
+  };
+
+  // ------------------ UPDATE QTY ------------------
+  const updateCartItem = async (variant_id, quantity) => {
+    try {
+      const res = await updateCartItemAPI({ variant_id, quantity });
+      await fetchCart();
+      return { success: true, msg: res.data.message };
+    } catch (err) {
+      const msg =
+        err?.response?.data?.error || "Failed to update quantity";
+      return { success: false, msg };
+    }
+  };
+
+  // ------------------ REMOVE ITEM ------------------
+  const removeCartItem = async (variant_id) => {
+    try {
+      const res = await removecartItemAPI(variant_id);
+      await fetchCart();
+      return { success: true, msg: res.data.message };
+    } catch (err) {
+      const msg =
+        err?.response?.data?.error || "Failed to remove item";
+      return { success: false, msg };
+    }
+  };
+
+  // ------------------ CLEAR CART ------------------
+  const clearCart = async () => {
+    try {
+      const res = await cleareCartAPI();
+      await fetchCart();
+      return { success: true, msg: res.data.message };
+    } catch (err) {
+      const msg =
+        err?.response?.data?.error || "Failed to clear cart";
+      return { success: false, msg };
     }
   };
 
   return (
-    <Crtcontext.Provider
+    <CartContext.Provider
       value={{
-        cartdata,
-        addtocart,
-        removeitem,
-        clearcart,
-        increaseQuantity,
-        decreaseQuantity,
-        orders,
-        placeOrder,
+        cart,
+        totalItems,
+        totalPrice,
+        loading,
+
+        addToCart,
+        updateCartItem,
+        removeCartItem,
+        clearCart,
+        refreshCart: fetchCart,
       }}
     >
       {children}
-    </Crtcontext.Provider>
+    </CartContext.Provider>
   );
 }
-
-export default CartContext;

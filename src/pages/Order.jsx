@@ -1,43 +1,67 @@
-import React, { useContext, useEffect, useState } from 'react';
-import axios from 'axios';
-import Navabar from '../components/navabar';
-import { Crtcontext } from '../context/CartContext';
+import React, { useEffect, useState } from "react";
+
+import Navabar from "../components/navabar";
+import { useNavigate } from "react-router-dom";
+import { fetchMyOrders } from "../api/order";
 
 function Orders() {
-  const {orders}=useContext(Crtcontext)
+  const [orders, setOrders] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
- 
+  useEffect(() => {
+    loadOrders();
+  }, []);
+
+  const loadOrders = async () => {
+    try {
+      const res = await fetchMyOrders();
+      setOrders(res.data);
+      console.log(res.data)
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
-    <div>        <Navabar/>
+    <div>
+     
 
-    <div className="container py-4">
-      <h2 className="text-center mb-4">🧾 Your Orders</h2>
+      <div className="container py-4">
+        <h2 className="mb-4">My Orders</h2>
 
-      {orders.length === 0 ? (
-        <p className="text-center text-muted">No orders yet.</p>
-      ) : (
-        orders.map((order, index) => (
-          <div key={index} className="card mb-4 shadow-sm">
-            <div className="card-body">
-              <h5 className="card-title">Order #{order.id || index + 1}</h5>
-              <p className="text-muted">🕒 {new Date(order.orderedAt).toLocaleString()}</p>
-              <ul className="list-group list-group-flush">
-                {order.products.map((product) => (
-                  <li key={product.id} className="list-group-item d-flex justify-content-between">
-                    <span>{product.title} (x{product.quantity})</span>
-                    <strong>₹{product.price * product.quantity}</strong>
-                  </li>
-                ))}
-              </ul>
-              <p className="mt-3 fw-bold text-end">
-                Total: ₹{order.products.reduce((sum, i) => sum + i.price * i.quantity, 0)}
-              </p>
+        {loading && <p>Loading...</p>}
+
+        {!loading && orders.length === 0 && (
+          <p className="text-muted">You have no orders.</p>
+        )}
+
+        {orders.map((order) => (
+          <div key={order.id} className="card mb-3 shadow-sm">
+            <div className="card-body d-flex justify-content-between align-items-center">
+              <div>
+                <h5>Order #{order.id}</h5>
+                <p className="mb-1">Status: <b>{order.status}</b></p>
+                <p className="mb-0 text-muted">
+                  {new Date(order.created_at).toLocaleString()}
+                </p>
+              </div>
+
+              <div className="text-end">
+                <h5>₹{order.total}</h5>
+                <button
+                  className="btn btn-outline-primary btn-sm mt-2"
+                  onClick={() => navigate(`/orders/${order.id}`)}
+                >
+                  View Details
+                </button>
+              </div>
             </div>
           </div>
-        ))
-      )}
-    </div>
+        ))}
+      </div>
     </div>
   );
 }

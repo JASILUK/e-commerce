@@ -1,78 +1,193 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { Crtcontext } from '../context/CartContext';
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
-import Usecustom from '../customehook/Usecustom';
-import { globelcontext } from '../context/userConetxt';
+import React, { useEffect, useState } from "react";
+import { useSearchParams, useNavigate } from "react-router-dom";
+import { CheckoutAPI } from "../api/checkout";
+import { toast } from "react-toastify";
+import AddressDisplay from "../components/AddressDesplay";
+import AddressModal from "../components/AddressChangeModel";
+import { CreateOrderAPI } from "../api/order";
+import StripePayment from "../components/stripComponent";
 
 function Checkout() {
-  const { cartdata, clearcart,orders,placeOrder } = useContext(Crtcontext);
-  const{user}=useContext(globelcontext)
-  const { data: products } = Usecustom('http://localhost:5000/products');
+  const [params] = useSearchParams();
   const navigate = useNavigate();
 
+  const mode = params.get("mode");
+  const variant = params.get("variant");
+  const qty = params.get("qty") || 1;
 
-  const [address, setAddress] = useState({
-    fullName: '',
-    phone: '',
-    street: '',
-    city: '',
-    PIN: '',
-    paymentMethod: 'cod'
-  });
+  const [checkoutData, setCheckoutData] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-  const handleChange = (e) => {
-    setAddress({ ...address, [e.target.name]: e.target.value });
-  };
+  const [showAddressModal, setShowAddressModal] = useState(false);
+  const [clientSecret, setClientSecret] = useState(null);
+  const [paymentMethod, setPaymentMethod] = useState("COD"); 
+  const [processing, setProcessing] = useState(false);
 
-  const handleOrder = async () => {
-    if (!address.fullName || !address.phone || !address.city || !address.street || !address.PIN) {
-      alert('Please fill all address fields');
-      
-      return;
+
+  // --------------------------
+  // CALL BACKEND CHECKOUT API
+  // --------------------------
+  const fetchCheckout = async () => {
+    try {
+      let body = {};
+      if (mode === "cart") {
+        body = { mode: "cart" };
+      } else {
+        body = {
+          mode: "buy_now",
+          variant_id: variant,
+          quantity: qty,
+        };
+      }
+      const res = await CheckoutAPI(body);
+      setCheckoutData(res.data);
+    } catch (err) {
+      toast.error(err.response?.data?.error || "Checkout failed");
+      if (mode === "cart") navigate("/cart");
+      else navigate("/product/" + variant);
+    } finally {
+      setLoading(false);
     }
-
-    placeOrder(address)
-    navigate('/orders')
   };
+
+  useEffect(() => {
+    fetchCheckout();
+  }, []);
+
+  // --------------------------
+  // HANDLE PLACE ORDER
+  // --------------------------
+  const handleOrder = async () => {
+    setProcessing(true)
+    try {
+      const payload = {
+        payment_method: paymentMethod, // Pass selected payment method
+        address: checkoutData.address.id,
+        source: mode === "cart" ? "cart" : "buy_now",
+        variant_id: mode === "cart" ? null : variant,
+        qty: mode === "cart" ? null : qty,
+      };
+
+      const res = await CreateOrderAPI(payload);
+
+      if (!res.data.payment_required || paymentMethod === "COD") {
+        toast.success("Order placed successfully!");
+        navigate("/orders");
+        return;
+      }
+
+      // Online payment: Save client secret & show Stripe UI
+    setClientSecret(res.data.client_secret);
+
+    } catch (err) {
+      console.log(err);
+      toast.error(err.response?.data?.error || "Order failed!");
+    }finally{
+      setProcessing(false)
+    }
+  };
+
+  if (loading) return <h2 className="text-center mt-5">Loading checkout...</h2>;
+  if (!checkoutData)
+    return <h3 className="text-danger text-center">Unable to load checkout</h3>;
 
   return (
     <div className="container py-4">
+      {/* Stripe Payment UI */}
+      {paymentMethod === "STRIPE" && clientSecret && (
+   <StripePayment clientSecret={clientSecret} onSuccess={() => navigate("/orders")} />
+)}
+
       <h2 className="text-center mb-4">Checkout</h2>
 
       <div className="row">
+        {/* LEFT SIDE: SHIPPING & PAYMENT */}
         <div className="col-md-6">
-          <h4>Shipping Address</h4>
-          <input type="text" name="fullName" placeholder="Full Name" className="form-control mb-2" value={address.fullName} onChange={handleChange} />
-          <input type="text" name="phone" placeholder="Phone Number" className="form-control mb-2" value={address.phone} onChange={handleChange} />
-          <input type="text" name="street" placeholder="Street Address" className="form-control mb-2" value={address.street} onChange={handleChange} />
-          <input type="text" name="city" placeholder="City" className="form-control mb-2" value={address.city} onChange={handleChange} />
-          <input type="text" name="PIN" placeholder="PIN Code" className="form-control mb-2" value={address.PIN} onChange={handleChange} />
+          <AddressDisplay
+            address={checkoutData.address}
+            onChangeClick={() => setShowAddressModal(true)}
+          />
 
-          <h5 className="mt-3">Payment Method</h5>
-          <select className="form-select" name="paymentMethod" value={address.paymentMethod} onChange={handleChange}>
-            <option value="cod">Cash on Delivery</option>
-            <option value="upi">UPI (Dummy)</option>
-            <option value="card">Card (Dummy)</option>
-          </select>
+          <AddressModal
+            show={showAddressModal}
+            onClose={() => setShowAddressModal(false)}
+            onUpdated={fetchCheckout}
+          />
 
-          <button onClick={handleOrder} className="btn btn-success mt-4 w-100">Place Order</button>
+          {/* Payment Method Selection */}
+          <div className="mt-4">
+            <h5>Select Payment Method</h5>
+            <div className="form-check">
+              <input
+                className="form-check-input"
+                type="radio"
+                name="paymentMethod"
+                id="cod"
+                value="COD"
+                checked={paymentMethod === "COD"}
+                onChange={() => setPaymentMethod("COD")}
+              />
+              <label className="form-check-label" htmlFor="cod">
+                Cash on Delivery
+              </label>
+            </div>
+
+            <div className="form-check">
+              <input
+                className="form-check-input"
+                type="radio"
+                name="paymentMethod"
+                id="stripe"
+                value="STRIPE"
+                checked={paymentMethod === "STRIPE"}
+                onChange={() => setPaymentMethod("STRIPE")}
+              />
+              <label className="form-check-label" htmlFor="stripe">
+                Pay Online
+              </label>
+            </div>
+          </div>
+
+          <button className="btn btn-success mt-4 w-100" onClick={handleOrder} disabled={processing}>
+            {processing ? (
+              <>
+                <span
+                  className="spinner-border spinner-border-sm me-2"
+                  role="status"
+                ></span>
+                Processing...
+              </>
+            ) : (
+              "Place Order"
+            )}
+          </button>
         </div>
 
+        {/* RIGHT SIDE: SUMMARY */}
         <div className="col-md-6">
           <h4>Order Summary</h4>
           <ul className="list-group">
-            {cartdata.map((item) => (
-              <li className="list-group-item d-flex justify-content-between" key={item.id}>
-                <span>{item.title} (x{item.quantity})</span>
-                <strong>₹{item.price * item.quantity}</strong>
+            {checkoutData.items.map((item) => (
+              <li
+                key={item.variant_id}
+                className="list-group-item d-flex justify-content-between"
+              >
+                <span>
+                  {item.product_name} (x{item.quantity})
+                </span>
+                <strong>₹{item.line_total}</strong>
               </li>
             ))}
           </ul>
 
-          <p className="text-end mt-3 fs-5">
-            Total: ₹{cartdata.reduce((sum, i) => sum + i.price * i.quantity, 0)}
-          </p>
+          <div className="mt-4">
+            <p>Subtotal: ₹{checkoutData.subtotal}</p>
+            <p>Discount: ₹{checkoutData.total_discount}</p>
+            <p>Shipping: ₹{checkoutData.shipping_charges}</p>
+            <p>
+              <b>Grand Total: ₹{checkoutData.grand_total}</b>
+            </p>
+          </div>
         </div>
       </div>
     </div>

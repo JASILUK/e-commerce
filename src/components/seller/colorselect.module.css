@@ -1,0 +1,12 @@
+.card { background: #fff; border-radius: 10px; padding: 1.25rem; margin-top: 1rem; box-shadow: 0 4px 12px rgb(0 0 0 / 0.05); }
+h4 { margin: 0 0 0.75rem; font-weight: 600; }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(90px, 1fr)); gap: 0.75rem; }
+.swatch { display: flex; flex-direction: column; align-items: center; gap: 0.4rem; padding: 0.5rem; border: 2px solid transparent; border-radius: 8px; cursor: pointer; transition: all 0.2s; background: var(--clr-gray-50); }
+.swatch:hover { border-color: var(--clr-primary); }
+.active { border-color: var(--clr-primary); background: #eef2ff; }
+.colorDot { width: 32px; height: 32px; border-radius: 50%; border: 2px solid #fff; box-shadow: 0 0 0 1px var(--clr-gray-200); }
+.name { font-size: 0.75rem; color: var(--clr-gray-700); text-align: center; }
+.actions { margin-top: 1rem; display: flex; justify-content: flex-end; }
+.addBtn { display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.5rem 1rem; border: none; border-radius: 8px; background: var(--clr-success); color: #fff; font-weight: 500; cursor: pointer; transition: background 0.2s; }
+.addBtn:hover:not(:disabled) { background: #059669; }
+.addBtn:disabled { opacity: 0.5; cursor: not-allowed; }

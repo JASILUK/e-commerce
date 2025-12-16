@@ -1,10 +1,10 @@
 import React, { useContext } from 'react';
 import { wishcontext } from '../context/Wishlist';
-import CartContext, { Crtcontext } from '../context/CartContext';
+import  {  useCart } from '../context/CartContext';
 
 function WishlistCard({value: item }) {
 const {addtowish} =useContext(wishcontext)
-const {addtocart} =useContext(Crtcontext)
+const {addtocart} =useContext(useCart)
 const handleremove=(items)=>{
     addtowish(items)
 }

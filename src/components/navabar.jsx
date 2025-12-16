@@ -4,7 +4,7 @@ import styles from './navbar.module.css';
 import { globelcontext } from '../context/userConetxt';
 import logo from  '../assets/logo.png'
 import '@fortawesome/fontawesome-free/css/all.min.css';
-import { Crtcontext } from '../context/CartContext';
+import {  useCart } from '../context/CartContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart as solidHeart } from '@fortawesome/free-solid-svg-icons';
 import { faHeart as regularHeart } from '@fortawesome/free-regular-svg-icons';
@@ -16,7 +16,7 @@ function Navabar() {
   const { user, logout } = useContext(globelcontext);
   const [scrll, setscroll] = useState(false);
   const navigate = useNavigate();
-  const { cartdata } = useContext(Crtcontext);
+  const { totalItems } = useCart()
   const {wishlistdata} =useContext(wishcontext)
   const [showLogoutBox, setShowLogoutBox] = useState(false);
 
@@ -46,6 +46,30 @@ function Navabar() {
       <NavLink to='/collection' className={styles.navlink}>COLLECTIONS</NavLink>
      
       <NavLink to='/support' className={styles.navlink}>SUPPORT</NavLink>
+ 
+ 
+        { user && (
+          <>
+            { user.role === 'BUYER' && (
+              <NavLink to="/seller-application" className={styles.navlink}>
+                Apply as Seller
+                { 
+                  user?.seller_profile?.status === 'pending' && <span className={styles.badge}>Pending</span>
+                }
+              </NavLink>
+            )}
+
+            { user.role === 'SELLER' && (
+              <NavLink to="/seller/dashboard" className={styles.navlink}>Seller Dashboard</NavLink>
+            )}
+          </>
+        )}
+{user && (
+  <NavLink to="/orders" className={styles.navlink}>
+    My Orders
+  </NavLink>
+)}
+
 
       <NavLink to='/wishlist' style={{position:'relative'}}>
          <FontAwesomeIcon
@@ -65,10 +89,11 @@ function Navabar() {
 
         <NavLink to='/cart' className={styles.carticon} style={{ position: 'relative' }}>
            <i className="fas fa-shopping-cart"></i>
-          {cartdata.length > 0 && (
-            <span className={styles.cartcount}>{cartdata.length}</span>
+          {totalItems > 0 && (
+            <span className={styles.cartcount}>{totalItems}</span>
             )}
         </NavLink>
+        
 
       {user ? (
   <div className={styles.userBox}>
@@ -88,10 +113,12 @@ function Navabar() {
         <div className={styles.popupButtons}>
           <button 
             className={styles.confirmBtn} 
-            onClick={() => {
-              logout();
+            onClick={ async () => {
               setShowLogoutBox(false);
+              await logout();
+
               navigate('/collection');
+              window.location.reload()
             }}
           >
             Yes, Logout

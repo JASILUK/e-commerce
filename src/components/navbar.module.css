@@ -98,7 +98,7 @@ align-self:flex-start;
   height: 50px;
 }
 .active{
-  color: #d74f0b;
+  color: #d74f0b !important;
 }
 
 .navlink:hover {
@@ -160,4 +160,34 @@ align-self:flex-start;
   font-size: 15px;
   outline: none;
   border: 1px solid lightgray;
+}
+.nav-item.dropdown .dropdown-menu {
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px);
+  transition: all 0.2s ease;
+}
+
+
+:global(.nav-item.dropdown:hover .dropdown-menu) {
+  display: block !important;
+}
+
+:global(.nav-item.dropdown .dropdown-menu) {
+  margin-top: 0;
+}
+/* Show dropdown on hover */
+.nav-item.dropdown:hover .dropdown-menu {
+  display: block;
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+/* Fix default hidden state */
+.dropdown-menu {
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px);
+  transition: all 0.2s ease;
 }

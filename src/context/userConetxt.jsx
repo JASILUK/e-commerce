@@ -11,7 +11,6 @@ const[loading,setload]=useState(true)
 
 useEffect(()=>{
     checkuser()
-    
 },[])
 
 
@@ -19,6 +18,8 @@ const checkuser = async ()=>{
   try {
   const res = await getuser()
   setuser(res.data)
+   console.log(res.data)
+
 }
 catch(err){
   setuser(null)

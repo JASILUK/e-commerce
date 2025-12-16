@@ -5,7 +5,7 @@ import { Navigate, Outlet } from 'react-router-dom'
 function  AdminorUser() {
     const {user,loading}=useContext(globelcontext)
     if(loading){return <p>loading</p>}
-    if(user?.role=="admin"){return <Navigate to='/admin/dashboard' replace />}
+    if(user?.role=="ADMIN"){return <Navigate to='/admin/dashboard' replace />}
   return <Outlet/>
 }
 

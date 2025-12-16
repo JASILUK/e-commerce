@@ -1,60 +1,109 @@
-import React, { useContext } from 'react';
-import styles from './cartcard.module.css';
-import { Crtcontext } from '../context/CartContext';
-import { Link, useNavigate } from 'react-router-dom';
+import React from "react";
+import styles from "./cartcard.module.css";
+import { useCart } from "../context/CartContext";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 function CartCard({ cartobj }) {
-  const { removeitem, increaseQuantity, decreaseQuantity } = useContext(Crtcontext);
+  const { removeCartItem, updateCartItem } = useCart();
+  const navigate = useNavigate();
 
-  const remove = () => removeitem(cartobj.id);
-  const inchandle = () => increaseQuantity(cartobj.id);
-  const dichandle = () => decreaseQuantity(cartobj.id);
-  const navigate=useNavigate()
+
+  const handleQuantityChange = async (newQty) => {
+  const result = await updateCartItem(cartobj.variant.id, newQty);
+
+  result.success ? toast.success(result.msg) : toast.error(result.msg);
+};
+const removeItem = async () => {
+  const result = await removeCartItem(cartobj.variant.id);
+
+  result.success ? toast.success(result.msg) : toast.error(result.msg);
+};
+
+
+  const increaseQty = () =>
+     handleQuantityChange(cartobj.quantity + 1);
+
+  const decreaseQty = () =>
+    handleQuantityChange( cartobj.quantity - 1);
 
   return (
     <div className={`card shadow-sm mb-4 p-3 ${styles.cardparent}`}>
-      
       <div className="row g-3 align-items-center">
-        <div className="col-md-4 text-center">
-          <img src={cartobj.imageUrl} alt={cartobj.title} className={styles.image} onClick={()=>{navigate(`/product/${cartobj.id}`)}}/>
-        </div>
         
+        {/* PRODUCT IMAGE */}
+        <div className="col-md-4 text-center">
+          <img
+            src={cartobj.variant?.thumbnail}
+            alt={cartobj.variant?.title}
+            className={styles.image}
+            onClick={() => navigate(`/product/${cartobj.variant.slug}`)}
+          />
+        </div>
 
+        {/* DETAILS */}
         <div className="col-md-8">
           <div className={styles.details}>
+
+            {/* TITLE + REMOVE */}
             <div className="d-flex justify-content-between align-items-start mb-2">
-              <h5 className="fw-bold">{cartobj.title}</h5>
-              <button onClick={remove} className={styles.removebtn}>✖️</button>
+              <h5 className="fw-bold">{cartobj.variant?.product_name}</h5>
+              <button onClick={removeItem} className={styles.removebtn}>✖️</button>
             </div>
 
-            <p className="text-muted small">{cartobj.description}</p>
+            {/* DESCRIPTION */}
+            <p className="text-muted small">{cartobj.variant?.description}</p>
 
-            <div className="mb-2">
-              <label className="me-2">Size:</label>
-              <select className="form-select form-select-sm w-auto d-inline">
-                {cartobj.sizes?.map((item, index) => (
-                  <option key={index} value={item}>{item}</option>
-                ))}
-              </select>
-            </div>
+            {/* COLOR */}
+        <div className={styles.detailRow}>
+          <label>Color:</label>
+          <span
+            className={styles.colorDot}
+            style={{ backgroundColor: cartobj.variant.color_name }}
+          ></span>
+          <span className="ms-2">{cartobj.variant.color_name}</span>
+        </div>
 
-            <div className="mb-2">
-              <label className="me-2">Color:</label>
-              {cartobj.colors?.map((col, ind) => (
-                <span key={ind} className={styles.colorDot} style={{ backgroundColor: col }}></span>
-              ))}
-            </div>
+        {/* SIZE */}
+        <div className={styles.detailRow}>
+          <label>Size:</label>
+          <span>{cartobj.variant.size}</span>
+        </div>
 
+              <p >price :  ₹{cartobj.price_at_add}</p>
+
+            {/* PRICE + QTY */}
             <div className="d-flex justify-content-between align-items-center mt-3">
-              <strong className="fs-5">₹{cartobj.price * cartobj.quantity}</strong>
+              <strong className="fs-6">Total :₹{cartobj.item_total_price}</strong>
+
               <div className="d-flex align-items-center">
-                <button onClick={dichandle} className={`${styles.incdic} ${cartobj.quantity==1 ? styles.disable :''}`}>−</button>
+
+                <button
+                  onClick={decreaseQty}
+                  className={`${styles.incdic} ${
+                    cartobj.quantity === 1 ? styles.disable : ""
+                  }`}
+                >
+                  −
+                </button>
+
                 <span className="mx-2 fw-bold">{cartobj.quantity}</span>
-                <button onClick={inchandle} className={`${styles.incdic} ${cartobj.quantity==5 ? styles.disable :''}`}>＋</button>
+
+                <button
+                  onClick={increaseQty}
+                  className={`${styles.incdic} ${
+                    cartobj.quantity === 5 ? styles.disable : ""
+                  }`}
+                >
+                  ＋
+                </button>
               </div>
+
             </div>
+
           </div>
         </div>
+
       </div>
     </div>
   );

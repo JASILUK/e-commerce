@@ -1,0 +1,61 @@
+.tableCard {
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.tableCard:hover {
+  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.12);
+}
+
+.tableHeader {
+  padding: 25px;
+  border-bottom: 1px solid #e5e7eb;
+  background: white;
+}
+
+.alertHeader {
+  background: #fffbeb;
+}
+
+.headerContent {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.headerIcon {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+  color: #2563eb;
+  flex-shrink: 0;
+}
+
+.alertIcon {
+  background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+  color: #d97706;
+}
+
+.headerText h3 {
+  font-size: 18px;
+  color: #111827;
+  font-weight: 600;
+  margin: 0;
+}
+
+.headerText p {
+  font-size: 13px;
+  color: #6b7280;
+  margin: 4px 0 0 0;
+}
+
+.tableContent {
+  overflow-x: auto;
+}

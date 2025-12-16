@@ -1,0 +1,32 @@
+.chartCard {
+  background: white;
+  border-radius: 16px;
+  padding: 25px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+}
+
+.chartCard:hover {
+  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.12);
+}
+
+.chartHeader {
+  margin-bottom: 20px;
+}
+
+.chartHeader h3 {
+  font-size: 18px;
+  color: #111827;
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+.chartHeader p {
+  font-size: 13px;
+  color: #6b7280;
+}
+
+.chartContent {
+  width: 100%;
+}
+

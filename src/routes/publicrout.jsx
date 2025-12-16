@@ -29,7 +29,17 @@ import Productadd from '../adminpanel/Productadd'
 import Manageuserdetails from '../adminpanel/Manageuserdetails'
 import Notfound from '../pages/Notfound'
 import ConfirmEmail from '../pages/emailconfirm'
-
+import SellerApplication from '../components/SelletApplication'
+import SellerProtected from './sellerProtected'
+import SellerDashboard from '../sellerpanel/sellerdashboard'
+import SellerProducts from '../sellerpanel/sellerproducts'
+import SellerOrders from '../sellerpanel/sellerOrders'
+import SellerEarnings from '../sellerpanel/sellerearnongs'
+import SellerLayout from '../sellerpanel/sellerLayout'
+import OrderDetail from '../pages/ordersdetailed'
+import SellerOrderDetail from '../sellerpanel/sellerorderDetailed'
+import SellerCreateProduct from '../sellerpanel/addproducts'
+import SellerProductDetail from '../sellerpanel/productdetailed'
 function Publicrout() {
   return (
     <Routes>
@@ -37,23 +47,28 @@ function Publicrout() {
         
         <Route path='/' element={<Home/>}/>
         <Route element={<Layout/>}>
+        <Route path="/seller-application" element={<Protected><SellerApplication/></Protected>} />
+
         <Route element={<AdminorUser/>}>
+
         <Route path='/collection' element={<Collection/>}>
-              <Route index element={<Allproducts/>}/>
-              <Route path='men' element={<Men/>}/>
-              <Route path='women' element={<Women/>}/>
-              <Route path='kids' element={<Kid/>}/>
+               <Route index element={<Allproducts/>} />
+                <Route path=":categorySlug" element={<Allproducts/>} />
         </Route>
-        <Route path='/product/:userid' element={<ProductDitails/>}/>
+        <Route path='/product/:slug' element={<ProductDitails/>}/>
+        <Route path='/cart' element={<Cart/>}/>
+
         <Route element={<Protected/>}>
-            <Route path='/cart' element={<Cart/>}/>
             <Route path='/checkout' element={<Checkout/>}/>
             <Route path='/orders' element={<Orders/>}/>  
             <Route path='/wishlist'  element={<Wishdetails/>}/>
+
         </Route>
         <Route path="/support" element={<Support />} />
         <Route path="/orders" element={<Orders />} />
+        <Route path="/orders/:id" element={<OrderDetail />} />
         
+
         </Route>
 
         </Route>
@@ -76,6 +91,19 @@ function Publicrout() {
                 <Route path='users/:id' element={<Manageuserdetails/>}/>
                 
                 
+            </Route>
+        </Route>
+        <Route element={<SellerProtected/>}>
+             <Route path="/seller" element={<SellerLayout />}>
+                <Route path="dashboard" element={<SellerDashboard />} />
+                <Route path="products" element={<SellerProducts />} />
+                <Route path="products/:slug" element={<SellerProductDetail />} />
+
+                <Route path="products/create/" element={<SellerCreateProduct />} />
+                
+                <Route path="orders" element={<SellerOrders />} />
+                <Route path="orders/:id" element={<SellerOrderDetail />} />
+                <Route path="earnings" element={<SellerEarnings />} />
             </Route>
         </Route>
         <Route path="*" element={<Notfound />} />

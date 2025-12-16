@@ -15,7 +15,7 @@ function Kid() {
       return b.price-a.price
     } }) 
   return (
-    <div style={{ backgroundColor: '#f3f4f6' }}>
+    <div style={{ backgroundColor: "#f3f4f6" }}>
       <div style={{
         display: "flex",
         flexDirection: "row",

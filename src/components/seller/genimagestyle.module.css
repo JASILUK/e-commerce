@@ -1,0 +1,23 @@
+/* container sits in the top-right corner of the section header */
+.addImageBox { margin-left: auto; }
+
+/* hide the ugly native input */
+.hiddenInput { display: none; }
+
+/* pretty button – matches your existing .actionButton theme */
+.addBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.55rem 1rem;
+  border: none;
+  border-radius: 8px;
+  background: #8b5cf6;          /* same purple as “imageButton” */
+  color: #fff;
+  font-weight: 500;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+.addBtn:hover:not(:disabled) { background: #7c3aed; }
+.addBtn:disabled { opacity: 0.6; cursor: not-allowed; }

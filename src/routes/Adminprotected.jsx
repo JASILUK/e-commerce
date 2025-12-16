@@ -5,7 +5,7 @@ import { Navigate, Outlet } from 'react-router-dom'
 function Adminprotected() {
 const {user,loading} =useContext(globelcontext)
     if(loading){return <p>loading</p>}
-    if(!user || user?.role!="admin"){return <Navigate to='/login' replace/>}
+    if(!user || user?.role!="ADMIN"){return <Navigate to='/login' replace/>}
 
     return  <Outlet/>
   
