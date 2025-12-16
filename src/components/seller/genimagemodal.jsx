@@ -2,7 +2,7 @@ import { useState, useRef } from "react";
 import { toast } from "react-toastify";
 import { MoreVertical, Edit, Trash, Upload } from "lucide-react";
 import { DeleteGenaralImageAPI, editGenaralImageAPI } from "../../api/products";
-import ConfirmModal from "./ConfirmModal"; // reusable tiny modal
+import ConfirmModal from "./confirmModal"; // reusable tiny modal
 import styles from "./genimagemodal.module.css";
 
 export default function ImageMenu({ slug, imgId, imgUrl, onDelete, onEdit }) {
