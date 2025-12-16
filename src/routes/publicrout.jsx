@@ -28,15 +28,16 @@ import Notfound from '../pages/Notfound'
 import ConfirmEmail from '../pages/emailconfirm'
 import SellerApplication from '../components/SelletApplication'
 import SellerProtected from './sellerProtected'
-import SellerDashboard from '../sellerpanel/sellerdashboard'
+import OrderDetail from '../pages/ordersdetailed'
+import SellerDashboard from '../sellerpanel/sellerDashboard'
 import SellerProducts from '../sellerpanel/sellerproducts'
 import SellerOrders from '../sellerpanel/sellerOrders'
 import SellerEarnings from '../sellerpanel/sellerearnongs'
 import SellerLayout from '../sellerpanel/sellerLayout'
-import OrderDetail from '../pages/ordersdetailed'
 import SellerOrderDetail from '../sellerpanel/sellerorderDetailed'
 import SellerCreateProduct from '../sellerpanel/addproducts'
 import SellerProductDetail from '../sellerpanel/productdetailed'
+
 function Publicrout() {
   return (
     <Routes>
