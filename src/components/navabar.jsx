@@ -117,7 +117,7 @@ function Navabar() {
               setShowLogoutBox(false);
               await logout();
 
-              window.location.href = '/collection';
+              navigate("/collection");
             }}
           >
             Yes, Logout

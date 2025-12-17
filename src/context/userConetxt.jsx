@@ -54,20 +54,13 @@ const logout = async () => {
   try {
     
     authState.isLoggingOut = true;
-
-    
     setuser(null);
-
     await logoutAPI();
     toast.success("Logout successful");
   } catch (err) {
     toast.error(err.response?.data?.detail || "Logout failed");
   } finally {
-    
-    setTimeout(() => {
       authState.isLoggingOut = false;
-    }, 1000); 
-    
     setload(false);
   }
 };
