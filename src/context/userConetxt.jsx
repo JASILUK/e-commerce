@@ -51,19 +51,26 @@ const login = async (userdata,setdirectily) => {
 };
 
 const logout = async () => {
-    try {
-          authState.isLoggingOut = true;
-        const res = await logoutAPI();
-        toast.success("Logout successful");
-    } catch (err) {
-        toast.error(err.response?.data?.detail);
-    }finally {
-          authState.isLoggingOut = false;
+  try {
+    
+    authState.isLoggingOut = true;
 
-  setuser(null);
-  setload(false);
-}
-}
+    
+    setuser(null);
+
+    await logoutAPI();
+    toast.success("Logout successful");
+  } catch (err) {
+    toast.error(err.response?.data?.detail || "Logout failed");
+  } finally {
+    
+    setTimeout(() => {
+      authState.isLoggingOut = false;
+    }, 1000); 
+    
+    setload(false);
+  }
+};
 const resendEmail = async (email) => {
   try {
     await API.post("users/v1/auth/registration/resend-email/", { email });
