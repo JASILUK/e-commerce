@@ -118,7 +118,6 @@ function Navabar() {
               await logout();
 
               navigate('/collection');
-              window.location.reload()
             }}
           >
             Yes, Logout

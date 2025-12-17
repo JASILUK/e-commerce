@@ -2,6 +2,7 @@ import React, { createContext, useEffect, useState } from 'react'
 import { API } from '../api/axios'
 import { getuser, loginAPI, logoutAPI } from '../api/auth'
 import { toast } from 'react-toastify'
+import { authState } from '../api/authstate'
 
 export const globelcontext=createContext()
 
@@ -51,11 +52,14 @@ const login = async (userdata,setdirectily) => {
 
 const logout = async () => {
     try {
+          authState.isLoggingOut = true;
         const res = await logoutAPI();
         toast.success("Logout successful");
     } catch (err) {
         toast.error(err.response?.data?.detail);
     }finally {
+          authState.isLoggingOut = false;
+
   setuser(null);
   setload(false);
 }

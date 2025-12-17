@@ -34,8 +34,16 @@ API.interceptors.response.use(
     const originalRequest = error.config;
 
     if (!error.response) return Promise.reject(error);
-    if (error.config.url.includes("/login/")) {
-    return Promise.reject(error);
+    const url = originalRequest.url || "";
+
+    if (
+      url.includes("/login/") ||
+      url.includes("/logout/") ||
+      url.includes("/me/") ||
+      url.includes("/registration/") ||
+      authState.isLoggingOut
+    ) {
+      return Promise.reject(error);
     }
     if (error.response.status === 401 && !originalRequest._retry) {
       originalRequest._retry = true;
