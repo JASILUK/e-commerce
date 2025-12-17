@@ -21,7 +21,7 @@ createRoot(document.getElementById('root')).render(
   <UserConetxt>
     <CartContext>
       <Wishlist>
-    <BrowserRouter basename='/e-commerce'>
+    <BrowserRouter >
       <App />
     </BrowserRouter>
        </Wishlist>
