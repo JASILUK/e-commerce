@@ -14,20 +14,17 @@ useEffect(()=>{
 },[])
 
 
-const checkuser = async ()=>{
+const checkuser = async () => {
+  setload(true);
   try {
-  const res = await getuser()
-  setuser(res.data)
-   console.log(res.data)
-
-}
-catch(err){
-  setuser(null)
-}
-finally{
-  setload(false)
-}}
-
+    const res = await getuser();
+    setuser(res.data);
+  } catch {
+    setuser(null);
+  } finally {
+    setload(false);
+  }
+};
 
 const login = async (userdata,setdirectily) => {
   if (setdirectily){
@@ -58,9 +55,10 @@ const logout = async () => {
         toast.success("Logout successful");
     } catch (err) {
         toast.error(err.response?.data?.detail);
-    } finally {
-        setuser(null);
-    }
+    }finally {
+  setuser(null);
+  setload(false);
+}
 }
 const resendEmail = async (email) => {
   try {
