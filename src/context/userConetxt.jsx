@@ -54,9 +54,14 @@ const logout = async () => {
   try {
     
     authState.isLoggingOut = true;
+
+    if (window.google?.accounts?.id) {
+      window.google.accounts.id.disableAutoSelect();
+    }
     setuser(null);
     await logoutAPI();
     toast.success("Logout successful");
+    
   } catch (err) {
     toast.error(err.response?.data?.detail || "Logout failed");
   } finally {

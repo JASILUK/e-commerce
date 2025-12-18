@@ -72,12 +72,15 @@ function Register() {
 };
 
   return (
-    <GoogleOAuthProvider clientId="572366985213-hvhecnc2ff5pqr585qcbek3obhdhe970.apps.googleusercontent.com">
+    <GoogleOAuthProvider clientId="572366985213-hvhecnc2ff5pqr585qcbek3obhdhe970.apps.googleusercontent.com"
+    onScriptLoadSuccess={() => {
+    window.google?.accounts.id.disableAutoSelect();
+  }}>
       <div className="container d-flex justify-content-center">
         <div className="card shadow p-4 w-100" style={{ maxWidth: "450px" }}>
           <h1 className="text-center mb-4">Register</h1>
 
-          <GoogleLogin onSuccess={handlegoogle} onError={() => toast.error("Google Error")} />
+          <GoogleLogin onSuccess={handlegoogle} onError={() => toast.error("Google Error")} useOneTap={false}/>
 
           <hr />
 

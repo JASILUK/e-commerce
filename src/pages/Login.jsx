@@ -63,7 +63,10 @@ const handleResend = async () => {
     toast.error(message);
   }
 };
-  return (<GoogleOAuthProvider clientId="572366985213-hvhecnc2ff5pqr585qcbek3obhdhe970.apps.googleusercontent.com">
+  return (<GoogleOAuthProvider clientId="572366985213-hvhecnc2ff5pqr585qcbek3obhdhe970.apps.googleusercontent.com"
+  onScriptLoadSuccess={() => {
+    window.google?.accounts.id.disableAutoSelect();
+  }}>
     <div className="container d-flex justify-content-center align-items-center" style={{ minHeight: "100vh" }}>
       <div className="card shadow p-4" style={{ width: "100%", maxWidth: "400px" }}>
         <h2 className="text-center mb-4">LogIn Here</h2>
@@ -76,6 +79,8 @@ const handleResend = async () => {
                     <GoogleLogin
             onSuccess={handlegoogle}
             onError={() => toast.error("Google Login Error")}
+            useOneTap={false}
+            
           />
           <hr />
 
