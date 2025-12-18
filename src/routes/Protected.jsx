@@ -8,8 +8,10 @@ function Protected({children}) {
     if (loading) return <p>Loading...</p>;
 
     if (!user) return <Navigate to="/login"  replace />;
-
-    return children;
+    if( children ){
+        return children
+    }
+    return <Outlet/>;
 }
 
 
