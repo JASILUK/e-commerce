@@ -24,6 +24,7 @@ export default function CartProvider({ children }) {
       setCart(data.cart_items || []);
       setTotalItems(data.total_items || 0);
       setTotalPrice(data.total_price || 0);
+      console.log(res.data)
     } catch (err) {
       console.error("Error loading cart:", err);
     } finally {
